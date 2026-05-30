@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudentCalc | GPA & Rating Calculator</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-icon">
+      <lord-icon
+        src="https://cdn.lordicon.com/ttioogfl.json"
+        trigger="hover"
+        colors="primary:#ffffff,secondary:#ffffff"
+        style="width:42px;height:42px">
+      </lord-icon>
+    </div>
+
+    <div>
+      <h1 data-i18n="title">Студент балл калькуляторы</h1>
+      <p data-i18n="subtitle">Рейтинг, стипендия және GPA есептеу</p>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <button class="share-btn" type="button" onclick="shareSite()">
+  Досыңмен бөлісу
+</button>
+    <div class="lang">
+      <button onclick="setLang('kk')">KZ</button>
+      <button onclick="setLang('ru')">RU</button>
+      <button onclick="setLang('tr')">TR</button>
+    </div>
+
+    <button class="theme-btn" type="button" onclick="toggleTheme()">🌙</button>
+  </div>
+</header>
+
+<main id="captureArea" class="container">
+
+  <!-- 15 апта рейтинг -->
+  <section class="hero-card">
+    <div class="section-head">
+      <div class="section-icon">
+        <lord-icon
+          src="https://cdn.lordicon.com/wmwqvixz.json"
+          trigger="hover"
+          colors="primary:#3167ff,secondary:#4f63f6"
+          style="width:44px;height:44px">
+        </lord-icon>
+      </div>
+
+      <div>
+        <h2 data-i18n="ratingTitle">15 апта рейтинг есептеу</h2>
+        <p>Пән бағаларыңызды енгізіп, рейтинг пен стипендия көрсеткіштерін есептеңіз</p>
+      </div>
+
+      <div class="section-art">
+        <lord-icon
+          src="https://cdn.lordicon.com/lenjvibx.json"
+          trigger="hover"
+          colors="primary:#3167ff,secondary:#4f63f6"
+          style="width:90px;height:90px">
+        </lord-icon>
+      </div>
+    </div>
+
+    <div class="form-grid two">
+      <div>
+        <label data-i18n="subjectName">Пән атауы</label>
+        <input type="text" id="subjectName" placeholder="Мысалы: Информатика">
+      </div>
+
+      <div>
+        <label data-i18n="credit">Кредит саны</label>
+        <input type="number" id="credit" placeholder="5">
+      </div>
+    </div>
+
+    <div id="weeks" class="weeks"></div>
+
+    <div class="button-row">
+      <button class="main-btn" onclick="calculateRating()" data-i18n="calculate">
+        Есептеу
+      </button>
+
+      <button class="danger-btn" onclick="clearRating()" data-i18n="clear">
+        Тазалау
+      </button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card blue">
+        <span class="stat-icon">
+          <lord-icon
+            src="https://cdn.lordicon.com/wmwqvixz.json"
+            trigger="hover"
+            colors="primary:#2563eb"
+            style="width:44px;height:44px">
+          </lord-icon>
+        </span>
+        <div>
+          <p data-i18n="rating">Рейтинг:</p>
+          <b id="ratingResult">0</b>
+        </div>
+      </div>
+
+      <div class="stat-card purple">
+        <span class="stat-icon">
+          <lord-icon
+            src="https://cdn.lordicon.com/ttioogfl.json"
+            trigger="hover"
+            colors="primary:#7c3aed"
+            style="width:44px;height:44px">
+          </lord-icon>
+        </span>
+        <div>
+          <p data-i18n="needExam">Стипендияға емтиханнан керек:</p>
+          <b id="needExamResult">0</b>
+        </div>
+      </div>
+
+      <div class="stat-card green">
+        <span class="stat-icon">
+          <lord-icon
+            src="https://cdn.lordicon.com/lenjvibx.json"
+            trigger="hover"
+            colors="primary:#10b981"
+            style="width:44px;height:44px">
+          </lord-icon>
+        </span>
+        <div>
+          <p data-i18n="finalPrediction">Қорытынды болжам:</p>
+          <b id="finalResult">0</b>
+        </div>
+      </div>
+
+      <div class="stat-card orange">
+        <span class="stat-icon">
+          <lord-icon
+            src="https://cdn.lordicon.com/edplgash.json"
+            trigger="hover"
+            style="width:44px;height:44px">
+          </lord-icon>
+        </span>
+        <div>
+          <p data-i18n="status">Статус:</p>
+          <b id="statusResult">-</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Қорытынды балл -->
+  <section class="card">
+    <div class="section-head small">
+      <div class="section-icon">
+        <lord-icon
+          src="https://cdn.lordicon.com/lenjvibx.json"
+          trigger="hover"
+          colors="primary:#3167ff,secondary:#10b981"
+          style="width:44px;height:44px">
+        </lord-icon>
+      </div>
+
+      <div>
+        <h2>Қорытынды балл есептеу</h2>
+        <p>Рейтинг пен емтихан балын енгізіп, қорытынды бағаны шығарыңыз</p>
+      </div>
+    </div>
+
+    <div class="form-grid two">
+      <div>
+        <label>Рейтинг балл</label>
+        <input type="number" id="finalRatingInput" placeholder="85" min="0" max="100">
+      </div>
+
+      <div>
+        <label>Емтихан балл</label>
+        <input type="number" id="finalExamInput" placeholder="50" min="0" max="100">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="main-btn" onclick="calculateFinalGrade()">Есептеу</button>
+      <button class="danger-btn" onclick="clearFinalGrade()">Тазалау</button>
+    </div>
+
+    <div class="result mini-result">
+      <p>Қорытынды балл: <b id="finalGradeOnlyResult">0</b></p>
+      <p>Статус: <b id="finalGradeStatus">-</b></p>
+    </div>
+  </section>
+
+  <!-- Семестр GPA -->
+  <section class="card">
+    <div class="section-head small">
+      <div class="section-icon">
+        <lord-icon
+          src="https://cdn.lordicon.com/akuwjdzh.json"
+          trigger="hover"
+          colors="primary:#3167ff,secondary:#f59e0b"
+          style="width:44px;height:44px">
+        </lord-icon>
+      </div>
+
+      <div>
+        <h2 data-i18n="gpaTitle">Семестр GPA есептеу</h2>
+        <p>Пән атауы, кредит және қорытынды балл арқылы GPA есептеңіз</p>
+      </div>
+    </div>
+
+    <div id="gpaSubjects"></div>
+
+    <div class="button-row">
+      <button class="secondary-btn" onclick="addGpaRow()" data-i18n="addSubject">
+        + Пән қосу
+      </button>
+
+      <button class="main-btn" onclick="calculateGPA()" data-i18n="calculateGpa">
+        GPA есептеу
+      </button>
+
+      <button class="danger-btn" onclick="clearGPA()" data-i18n="clear">
+        Тазалау
+      </button>
+    </div>
+
+    <div class="result">
+      <p><span data-i18n="semesterGpa">Семестр GPA:</span> <b id="gpaResult">0.00</b></p>
+      <div id="gpaDetails"></div>
+    </div>
+  </section>
+
+  <!-- Мақсат GPA -->
+  <section class="card">
+    <div class="section-head small">
+      <div class="section-icon">
+        <lord-icon
+          src="https://cdn.lordicon.com/iltqorsz.json"
+          trigger="hover"
+          colors="primary:#3167ff,secondary:#ef4444"
+          style="width:44px;height:44px">
+        </lord-icon>
+      </div>
+
+      <div>
+        <h2>Мақсат GPA калькуляторы</h2>
+        <p>Қалған пәндерден орташа қанша балл керек екенін шамамен есептейді</p>
+      </div>
+    </div>
+
+    <div class="form-grid three">
+      <div>
+        <label>Қазіргі GPA</label>
+        <input type="number" id="currentGpa" placeholder="2.92" min="0" max="4" step="0.01">
+      </div>
+
+      <div>
+        <label>Мақсат GPA</label>
+        <input type="number" id="targetGpa" placeholder="3.30" min="0" max="4" step="0.01">
+      </div>
+
+      <div>
+        <label>Қалған пән саны</label>
+        <input type="number" id="remainingSubjects" placeholder="5" min="1">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="main-btn" onclick="calculateTargetGPA()">Есептеу</button>
+      <button class="danger-btn" onclick="clearTargetGPA()">Тазалау</button>
+    </div>
+
+    <div class="result mini-result">
+      <p>Қалған пәндерден орташа: <b id="targetResult">0</b> балл алу керек</p>
+    </div>
+  </section>
+
+  <!-- Курс GPA -->
+  <section class="card">
+    <div class="section-head small">
+      <div class="section-icon">
+        <lord-icon
+          src="https://cdn.lordicon.com/hursldrn.json"
+          trigger="hover"
+          colors="primary:#3167ff,secondary:#4f63f6"
+          style="width:44px;height:44px">
+        </lord-icon>
+      </div>
+
+      <div>
+        <h2>Курс GPA есептеу</h2>
+        <p>1 және 2 семестр GPA арқылы курс GPA есептеу</p>
+      </div>
+    </div>
+
+    <div class="form-grid two">
+      <div>
+        <label>1-семестр GPA</label>
+        <input type="number" id="sem1Gpa" placeholder="2.92" min="0" max="4" step="0.01">
+      </div>
+
+      <div>
+        <label>2-семестр GPA</label>
+        <input type="number" id="sem2Gpa" placeholder="3.01" min="0" max="4" step="0.01">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="main-btn" onclick="calculateCourseGPA()">Есептеу</button>
+      <button class="danger-btn" onclick="clearCourseGPA()">Тазалау</button>
+    </div>
+
+    <div class="result mini-result">
+      <p>Курс GPA: <b id="courseGpaResult">0.00</b></p>
+    </div>
+  </section>
+
+  <!-- Export -->
+  <section class="card export-card">
+    <div class="section-head small center">
+      <div class="section-icon">
+        <lord-icon
+          src="https://cdn.lordicon.com/ujxzdfjx.json"
+          trigger="hover"
+          colors="primary:#3167ff,secondary:#4f63f6"
+          style="width:44px;height:44px">
+        </lord-icon>
+      </div>
+
+      <div>
+        <h2 data-i18n="exportTitle">Нәтижені шығару</h2>
+        <p>Нәтижені сақтап, PDF немесе PNG ретінде жүктей аласыз</p>
+      </div>
+    </div>
+
+    <div class="button-row center-buttons">
+      <button onclick="saveData()" class="secondary-btn" data-i18n="save">
+        Браузерге сақтау
+      </button>
+
+      <button onclick="downloadPNG()" class="secondary-btn">
+        PNG / Screenshot
+      </button>
+
+      <button onclick="downloadPDF()" class="secondary-btn">
+        PDF
+      </button>
+
+      <button onclick="clearData()" class="danger-btn" data-i18n="clear">
+        Тазалау
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>
+    StudentCalc © 2026 ·
+  </p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
