@@ -53,6 +53,9 @@ const translations = {
     exportDesc: "Нәтижені сақтап, PDF немесе PNG ретінде жүктей аласыз",
     exportPng: "PNG / Screenshot",
     exportPdf: "PDF",
+    exportLoading: "Шығарылуда...",
+    exportFailed: "PNG немесе PDF шығару сәтсіз аяқталды. Қайта көріңіз.",
+    exportLibraryMissing: "Экспорт кітапханасы жүктелмеді. Интернетті тексеріп, бетті жаңартыңыз.",
     save: "Браузерге сақтау",
     clear: "Тазалау",
     week: "апта",
@@ -124,6 +127,9 @@ const translations = {
     exportDesc: "Сохраните результат и скачайте в формате PDF или PNG",
     exportPng: "PNG / Скриншот",
     exportPdf: "PDF",
+    exportLoading: "Экспорт...",
+    exportFailed: "Не удалось экспортировать PNG или PDF. Попробуйте снова.",
+    exportLibraryMissing: "Библиотека экспорта не загружена. Проверьте интернет и обновите страницу.",
     save: "Сохранить в браузере",
     clear: "Очистить",
     week: "неделя",
@@ -195,6 +201,9 @@ const translations = {
     exportDesc: "Sonucu kaydedin ve PDF veya PNG olarak indirin",
     exportPng: "PNG / Ekran görüntüsü",
     exportPdf: "PDF",
+    exportLoading: "Dışa aktarılıyor...",
+    exportFailed: "PNG veya PDF dışa aktarılamadı. Lütfen tekrar deneyin.",
+    exportLibraryMissing: "Dışa aktarma kütüphanesi yüklenmedi. İnterneti kontrol edip sayfayı yenileyin.",
     save: "Tarayıcıya kaydet",
     clear: "Temizle",
     week: "hafta",
@@ -705,27 +714,87 @@ function clearData() {
   location.reload();
 }
 
-function downloadPNG() {
-  const area = document.getElementById("captureArea");
+let exportInProgress = false;
 
-  html2canvas(area, {
+function setExportBusy(busy) {
+  const pngBtn = document.getElementById("exportPngBtn");
+  const pdfBtn = document.getElementById("exportPdfBtn");
+
+  [pngBtn, pdfBtn].forEach((btn) => {
+    if (!btn) return;
+    btn.disabled = busy;
+    btn.setAttribute("aria-busy", busy ? "true" : "false");
+    if (busy) {
+      btn.textContent = t("exportLoading");
+    } else {
+      const key = btn.getAttribute("data-i18n");
+      if (key) btn.textContent = t(key);
+    }
+  });
+}
+
+function getExportErrorKey(error) {
+  if (error && error.exportErrorKey) return error.exportErrorKey;
+  return "exportFailed";
+}
+
+async function captureAreaCanvas() {
+  if (typeof html2canvas !== "function") {
+    const err = new Error("html2canvas missing");
+    err.exportErrorKey = "exportLibraryMissing";
+    throw err;
+  }
+
+  const area = document.getElementById("captureArea");
+  if (!area) {
+    const err = new Error("capture area missing");
+    err.exportErrorKey = "exportFailed";
+    throw err;
+  }
+
+  return html2canvas(area, {
     scale: 2,
     backgroundColor: document.body.classList.contains("dark") ? "#081225" : "#eef6ff"
-  }).then(canvas => {
+  });
+}
+
+async function downloadPNG() {
+  if (exportInProgress) return;
+
+  hideFormError("exportError");
+  exportInProgress = true;
+  setExportBusy(true);
+
+  try {
+    const canvas = await captureAreaCanvas();
     const link = document.createElement("a");
     link.download = "studentcalc-result.png";
     link.href = canvas.toDataURL("image/png");
     link.click();
-  });
+  } catch (error) {
+    console.error("PNG export error:", error);
+    showFormError("exportError", getExportErrorKey(error));
+  } finally {
+    exportInProgress = false;
+    setExportBusy(false);
+  }
 }
 
-function downloadPDF() {
-  const area = document.getElementById("captureArea");
+async function downloadPDF() {
+  if (exportInProgress) return;
 
-  html2canvas(area, {
-    scale: 2,
-    backgroundColor: document.body.classList.contains("dark") ? "#081225" : "#eef6ff"
-  }).then(canvas => {
+  hideFormError("exportError");
+  exportInProgress = true;
+  setExportBusy(true);
+
+  try {
+    if (!window.jspdf || typeof window.jspdf.jsPDF !== "function") {
+      const err = new Error("jsPDF missing");
+      err.exportErrorKey = "exportLibraryMissing";
+      throw err;
+    }
+
+    const canvas = await captureAreaCanvas();
     const imgData = canvas.toDataURL("image/png");
 
     const { jsPDF } = window.jspdf;
@@ -751,7 +820,13 @@ function downloadPDF() {
     }
 
     pdf.save("studentcalc-result.pdf");
-  });
+  } catch (error) {
+    console.error("PDF export error:", error);
+    showFormError("exportError", getExportErrorKey(error));
+  } finally {
+    exportInProgress = false;
+    setExportBusy(false);
+  }
 }
 function shareSite() {
   const shareData = {

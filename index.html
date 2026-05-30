@@ -352,16 +352,18 @@
       </div>
     </div>
 
+    <p id="exportError" class="form-error" role="alert" hidden></p>
+
     <div class="button-row center-buttons">
       <button onclick="saveData()" class="secondary-btn" data-i18n="save">
         Браузерге сақтау
       </button>
 
-      <button onclick="downloadPNG()" class="secondary-btn" data-i18n="exportPng">
+      <button id="exportPngBtn" type="button" onclick="downloadPNG()" class="secondary-btn" data-i18n="exportPng">
         PNG / Screenshot
       </button>
 
-      <button onclick="downloadPDF()" class="secondary-btn" data-i18n="exportPdf">
+      <button id="exportPdfBtn" type="button" onclick="downloadPDF()" class="secondary-btn" data-i18n="exportPdf">
         PDF
       </button>
 
