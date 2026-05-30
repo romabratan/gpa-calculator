@@ -5,21 +5,58 @@ const translations = {
     title: "Студент балл калькуляторы",
     subtitle: "Рейтинг, стипендия және GPA есептеу",
     ratingTitle: "15 апта рейтинг есептеу",
+    ratingDesc: "Пән бағаларыңызды енгізіп, рейтинг пен стипендия көрсеткіштерін есептеңіз",
     subjectName: "Пән атауы",
-    credit: "Кредит саны",
+    subjectNameExample: "Мысалы: Информатика",
     calculate: "Есептеу",
     rating: "Рейтинг:",
     needExam: "Стипендияға емтиханнан керек:",
     finalPrediction: "Қорытынды болжам:",
     status: "Статус:",
+    share: "Досыңмен бөлісу",
+    shareText: "Рейтинг, стипендия және GPA есептейтін сайт",
+    linkCopied: "Сайт сілтемесі көшірілді!",
+    scholarshipImpossible: "❌ 100 балл алса да стипендияға жетпейді",
+    finalGradeTitle: "Қорытынды балл есептеу",
+    finalGradeDesc: "Рейтинг пен емтихан балын енгізіп, қорытынды бағаны шығарыңыз",
+    finalRatingLabel: "Рейтинг балл",
+    finalExamLabel: "Емтихан балл",
+    finalRatingExample: "85",
+    finalExamExample: "50",
+    finalGradeLabel: "Қорытынды балл:",
     gpaTitle: "Семестр GPA есептеу",
+    gpaDesc: "Пән атауы, кредит және қорытынды балл арқылы GPA есептеңіз",
     addSubject: "+ Пән қосу",
     calculateGpa: "GPA есептеу",
     semesterGpa: "Семестр GPA:",
+    gpaDetailCredit: "Кредит",
+    gpaDetailScore: "Баға",
+    gpaDetailLetter: "Әріптік",
+    gpaDetailGpa: "GPA",
+    targetGpaTitle: "Мақсат GPA калькуляторы",
+    targetGpaDesc: "Қалған пәндерден орташа қанша балл керек екенін шамамен есептейді",
+    currentGpaLabel: "Қазіргі GPA",
+    targetGpaLabel: "Мақсат GPA",
+    remainingSubjectsLabel: "Қалған пән саны",
+    currentGpaExample: "2.92",
+    targetGpaExample: "3.30",
+    remainingSubjectsExample: "5",
+    targetAvgPrefix: "Қалған пәндерден орташа:",
+    targetAvgSuffix: "балл алу керек",
+    impossibleTargetScore: "100+ мүмкін емес",
+    courseGpaTitle: "Курс GPA есептеу",
+    courseGpaDesc: "1 және 2 семестр GPA арқылы курс GPA есептеу",
+    sem1GpaLabel: "1-семестр GPA",
+    sem2GpaLabel: "2-семестр GPA",
+    courseGpaLabel: "Курс GPA:",
     exportTitle: "Нәтижені шығару",
+    exportDesc: "Нәтижені сақтап, PDF немесе PNG ретінде жүктей аласыз",
+    exportPng: "PNG / Screenshot",
+    exportPdf: "PDF",
     save: "Браузерге сақтау",
     clear: "Тазалау",
     week: "апта",
+    weekScorePlaceholder: "0 - 100",
     passedScholarship: " Стипендия сақталады",
     passedNoScholarship: " Өтті, бірақ стипендия жоқ",
     failedFinal: " Қорытынды 50-ден төмен, жазғы семестр қаупі бар",
@@ -39,21 +76,58 @@ const translations = {
     title: "Калькулятор баллов студента",
     subtitle: "Расчет рейтинга, стипендии и GPA",
     ratingTitle: "Расчет рейтинга за 15 недель",
+    ratingDesc: "Введите оценки по предмету, чтобы рассчитать рейтинг и стипендию",
     subjectName: "Название предмета",
-    credit: "Количество кредитов",
+    subjectNameExample: "Например: Информатика",
     calculate: "Рассчитать",
     rating: "Рейтинг:",
     needExam: "Для стипендии нужно на экзамене:",
     finalPrediction: "Прогноз итоговой оценки:",
     status: "Статус:",
+    share: "Поделиться с другом",
+    shareText: "Сайт для расчета рейтинга, стипендии и GPA",
+    linkCopied: "Ссылка на сайт скопирована!",
+    scholarshipImpossible: "❌ Даже 100 баллов на экзамене не хватает для стипендии",
+    finalGradeTitle: "Расчет итоговой оценки",
+    finalGradeDesc: "Введите рейтинг и экзамен, чтобы получить итоговую оценку",
+    finalRatingLabel: "Рейтинговый балл",
+    finalExamLabel: "Экзаменационный балл",
+    finalRatingExample: "85",
+    finalExamExample: "50",
+    finalGradeLabel: "Итоговый балл:",
     gpaTitle: "Расчет GPA за семестр",
+    gpaDesc: "Рассчитайте GPA по названию предмета, кредитам и итоговому баллу",
     addSubject: "+ Добавить предмет",
     calculateGpa: "Рассчитать GPA",
     semesterGpa: "GPA за семестр:",
+    gpaDetailCredit: "Кредит",
+    gpaDetailScore: "Оценка",
+    gpaDetailLetter: "Буква",
+    gpaDetailGpa: "GPA",
+    targetGpaTitle: "Калькулятор целевого GPA",
+    targetGpaDesc: "Примерно рассчитывает средний балл, нужный по оставшимся предметам",
+    currentGpaLabel: "Текущий GPA",
+    targetGpaLabel: "Целевой GPA",
+    remainingSubjectsLabel: "Количество оставшихся предметов",
+    currentGpaExample: "2.92",
+    targetGpaExample: "3.30",
+    remainingSubjectsExample: "5",
+    targetAvgPrefix: "Средний балл по оставшимся предметам:",
+    targetAvgSuffix: "нужно набрать",
+    impossibleTargetScore: "100+ невозможно",
+    courseGpaTitle: "Расчет GPA за курс",
+    courseGpaDesc: "Расчет GPA за курс по GPA 1 и 2 семестра",
+    sem1GpaLabel: "GPA 1-го семестра",
+    sem2GpaLabel: "GPA 2-го семестра",
+    courseGpaLabel: "GPA за курс:",
     exportTitle: "Экспорт результата",
+    exportDesc: "Сохраните результат и скачайте в формате PDF или PNG",
+    exportPng: "PNG / Скриншот",
+    exportPdf: "PDF",
     save: "Сохранить в браузере",
     clear: "Очистить",
     week: "неделя",
+    weekScorePlaceholder: "0 - 100",
     passedScholarship: " Стипендия сохраняется",
     passedNoScholarship: " Сдал, но без стипендии",
     failedFinal: " Итог ниже 50, есть риск летнего семестра",
@@ -73,21 +147,58 @@ const translations = {
     title: "Öğrenci Puan Hesaplayıcı",
     subtitle: "Rating, burs ve GPA hesaplama",
     ratingTitle: "15 haftalık rating hesaplama",
+    ratingDesc: "Ders notlarını girerek rating ve burs göstergelerini hesaplayın",
     subjectName: "Ders adı",
-    credit: "Kredi sayısı",
+    subjectNameExample: "Örneğin: Bilişim",
     calculate: "Hesapla",
     rating: "Rating:",
     needExam: "Burs için sınavdan gereken:",
     finalPrediction: "Tahmini final notu:",
     status: "Durum:",
+    share: "Arkadaşınla paylaş",
+    shareText: "Rating, burs ve GPA hesaplayan site",
+    linkCopied: "Site bağlantısı kopyalandı!",
+    scholarshipImpossible: "❌ Sınavdan 100 alsa bile burs için yetmez",
+    finalGradeTitle: "Final notu hesaplama",
+    finalGradeDesc: "Rating ve sınav notunu girerek final notunu hesaplayın",
+    finalRatingLabel: "Rating notu",
+    finalExamLabel: "Sınav notu",
+    finalRatingExample: "85",
+    finalExamExample: "50",
+    finalGradeLabel: "Final notu:",
     gpaTitle: "Dönem GPA hesaplama",
+    gpaDesc: "Ders adı, kredi ve final notu ile GPA hesaplayın",
     addSubject: "+ Ders ekle",
     calculateGpa: "GPA hesapla",
     semesterGpa: "Dönem GPA:",
+    gpaDetailCredit: "Kredi",
+    gpaDetailScore: "Not",
+    gpaDetailLetter: "Harf",
+    gpaDetailGpa: "GPA",
+    targetGpaTitle: "Hedef GPA hesaplayıcı",
+    targetGpaDesc: "Kalan derslerden gereken ortalama notu yaklaşık hesaplar",
+    currentGpaLabel: "Mevcut GPA",
+    targetGpaLabel: "Hedef GPA",
+    remainingSubjectsLabel: "Kalan ders sayısı",
+    currentGpaExample: "2.92",
+    targetGpaExample: "3.30",
+    remainingSubjectsExample: "5",
+    targetAvgPrefix: "Kalan derslerden ortalama:",
+    targetAvgSuffix: "puan almanız gerekir",
+    impossibleTargetScore: "100+ mümkün değil",
+    courseGpaTitle: "Kurs GPA hesaplama",
+    courseGpaDesc: "1. ve 2. dönem GPA ile kurs GPA hesaplama",
+    sem1GpaLabel: "1. dönem GPA",
+    sem2GpaLabel: "2. dönem GPA",
+    courseGpaLabel: "Kurs GPA:",
     exportTitle: "Sonucu dışa aktar",
+    exportDesc: "Sonucu kaydedin ve PDF veya PNG olarak indirin",
+    exportPng: "PNG / Ekran görüntüsü",
+    exportPdf: "PDF",
     save: "Tarayıcıya kaydet",
     clear: "Temizle",
     week: "hafta",
+    weekScorePlaceholder: "0 - 100",
     passedScholarship: " Burs korunur",
     passedNoScholarship: " Geçti, ancak burs yok",
     failedFinal: " Genel not 50'nin altında, yaz dönemi riski var",
@@ -119,6 +230,7 @@ function t(key) {
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem("studentCalcLang", lang);
+  document.documentElement.lang = lang;
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     el.textContent = t(el.getAttribute("data-i18n"));
@@ -129,22 +241,18 @@ function setLang(lang) {
 }
 
 function updatePlaceholders() {
-  const subjectName = document.getElementById("subjectName");
-  const credit = document.getElementById("credit");
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    el.placeholder = t(el.getAttribute("data-i18n-placeholder"));
+  });
 
-  if (subjectName) {
-    subjectName.placeholder =
-      currentLang === "kk" ? "Мысалы: Информатика" :
-      currentLang === "ru" ? "Например: Информатика" :
-      "Örneğin: Bilişim";
-  }
+  document.querySelectorAll(".week-input").forEach((input) => {
+    input.placeholder = t("weekScorePlaceholder");
+  });
 
-  if (credit) credit.placeholder = "5";
-
-  document.querySelectorAll(".gpa-subject").forEach(input => input.placeholder = t("subjectPlaceholder"));
-  document.querySelectorAll(".gpa-credit").forEach(input => input.placeholder = t("creditPlaceholder"));
-  document.querySelectorAll(".gpa-final").forEach(input => input.placeholder = t("finalPlaceholder"));
-  document.querySelectorAll(".delete-row").forEach(btn => btn.textContent = t("delete"));
+  document.querySelectorAll(".gpa-subject").forEach((input) => (input.placeholder = t("subjectPlaceholder")));
+  document.querySelectorAll(".gpa-credit").forEach((input) => (input.placeholder = t("creditPlaceholder")));
+  document.querySelectorAll(".gpa-final").forEach((input) => (input.placeholder = t("finalPlaceholder")));
+  document.querySelectorAll(".delete-row").forEach((btn) => (btn.textContent = t("delete")));
 }
 
 function toggleTheme() {
@@ -167,7 +275,7 @@ function createWeekInputs() {
     box.className = "week-box";
     box.innerHTML = `
       <label data-week-label="${i}">${i} ${t("week")}</label>
-      <input type="number" class="week-input" min="0" max="100" placeholder="0 - 100">
+      <input type="number" class="week-input" min="0" max="100" placeholder="${t("weekScorePlaceholder")}">
     `;
     weeks.appendChild(box);
   }
@@ -216,10 +324,7 @@ function calculateRating() {
   let status = "";
 
   if (neededExam > 100) {
-    status =
-      currentLang === "ru" ? "❌ Даже 100 баллов на экзамене не хватает для стипендии" :
-      currentLang === "tr" ? "❌ Sınavdan 100 alsa bile burs için yetmez" :
-      "❌ 100 балл алса да стипендияға жетпейді";
+    status = t("scholarshipImpossible");
   } else if (finalGrade < 50) {
     status = t("failedFinal");
   } else if (finalGrade >= 70) {
@@ -238,7 +343,6 @@ function calculateRating() {
 
 function clearRating() {
   document.getElementById("subjectName").value = "";
-  document.getElementById("credit").value = "";
 
   document.querySelectorAll(".week-input").forEach(input => {
     input.value = "";
@@ -379,10 +483,10 @@ function calculateGPA() {
       details += `
         <div class="gpa-detail-item">
           <b>${subject || t("subjectPlaceholder")}</b><br>
-          Кредит: ${credit}<br>
-          Баға: ${finalScore}<br>
-          Әріптік: ${grade.letter}<br>
-          GPA: ${grade.point.toFixed(2)}
+          ${t("gpaDetailCredit")}: ${credit}<br>
+          ${t("gpaDetailScore")}: ${finalScore}<br>
+          ${t("gpaDetailLetter")}: ${grade.letter}<br>
+          ${t("gpaDetailGpa")}: ${grade.point.toFixed(2)}
         </div>
       `;
     }
@@ -432,7 +536,7 @@ function clearCourseGPA() {
 }
 
 function gpaPointToScore(point) {
-  if (point > 4) return "100+ мүмкін емес";
+  if (point > 4) return t("impossibleTargetScore");
   if (point >= 3.67) return 90;
   if (point >= 3.33) return 85;
   if (point >= 3.00) return 80;
@@ -474,7 +578,6 @@ function collectData() {
   return {
     lang: currentLang,
     subjectName: document.getElementById("subjectName").value,
-    credit: document.getElementById("credit").value,
     weeks: Array.from(document.querySelectorAll(".week-input")).map(input => input.value),
     finalRatingInput: document.getElementById("finalRatingInput")?.value || "",
     finalExamInput: document.getElementById("finalExamInput")?.value || "",
@@ -506,7 +609,6 @@ function loadData() {
     if (data.lang) currentLang = data.lang;
 
     document.getElementById("subjectName").value = data.subjectName || "";
-    document.getElementById("credit").value = data.credit || "";
 
     document.querySelectorAll(".week-input").forEach((input, index) => {
       input.value = data.weeks?.[index] || "";
@@ -591,7 +693,7 @@ function downloadPDF() {
 function shareSite() {
   const shareData = {
     title: "StudentCalc",
-    text: "Рейтинг, стипендия және GPA есептейтін сайт",
+    text: t("shareText"),
     url: window.location.href
   };
 
@@ -599,6 +701,6 @@ function shareSite() {
     navigator.share(shareData);
   } else {
     navigator.clipboard.writeText(window.location.href);
-    alert("Сайт сілтемесі көшірілді!");
+    alert(t("linkCopied"));
   }
 }

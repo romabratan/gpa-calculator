@@ -31,9 +31,9 @@
   </div>
 
   <div class="top-actions">
-    <button class="share-btn" type="button" onclick="shareSite()">
-  Досыңмен бөлісу
-</button>
+    <button class="share-btn" type="button" onclick="shareSite()" data-i18n="share">
+      Досыңмен бөлісу
+    </button>
     <div class="lang">
       <button onclick="setLang('kk')">KZ</button>
       <button onclick="setLang('ru')">RU</button>
@@ -60,7 +60,7 @@
 
       <div>
         <h2 data-i18n="ratingTitle">15 апта рейтинг есептеу</h2>
-        <p>Пән бағаларыңызды енгізіп, рейтинг пен стипендия көрсеткіштерін есептеңіз</p>
+        <p data-i18n="ratingDesc">Пән бағаларыңызды енгізіп, рейтинг пен стипендия көрсеткіштерін есептеңіз</p>
       </div>
 
       <div class="section-art">
@@ -73,15 +73,10 @@
       </div>
     </div>
 
-    <div class="form-grid two">
+    <div class="form-grid">
       <div>
         <label data-i18n="subjectName">Пән атауы</label>
-        <input type="text" id="subjectName" placeholder="Мысалы: Информатика">
-      </div>
-
-      <div>
-        <label data-i18n="credit">Кредит саны</label>
-        <input type="number" id="credit" placeholder="5">
+        <input type="text" id="subjectName" data-i18n-placeholder="subjectNameExample" placeholder="Мысалы: Информатика">
       </div>
     </div>
 
@@ -172,31 +167,31 @@
       </div>
 
       <div>
-        <h2>Қорытынды балл есептеу</h2>
-        <p>Рейтинг пен емтихан балын енгізіп, қорытынды бағаны шығарыңыз</p>
+        <h2 data-i18n="finalGradeTitle">Қорытынды балл есептеу</h2>
+        <p data-i18n="finalGradeDesc">Рейтинг пен емтихан балын енгізіп, қорытынды бағаны шығарыңыз</p>
       </div>
     </div>
 
     <div class="form-grid two">
       <div>
-        <label>Рейтинг балл</label>
-        <input type="number" id="finalRatingInput" placeholder="85" min="0" max="100">
+        <label data-i18n="finalRatingLabel">Рейтинг балл</label>
+        <input type="number" id="finalRatingInput" data-i18n-placeholder="finalRatingExample" placeholder="85" min="0" max="100">
       </div>
 
       <div>
-        <label>Емтихан балл</label>
-        <input type="number" id="finalExamInput" placeholder="50" min="0" max="100">
+        <label data-i18n="finalExamLabel">Емтихан балл</label>
+        <input type="number" id="finalExamInput" data-i18n-placeholder="finalExamExample" placeholder="50" min="0" max="100">
       </div>
     </div>
 
     <div class="button-row">
-      <button class="main-btn" onclick="calculateFinalGrade()">Есептеу</button>
-      <button class="danger-btn" onclick="clearFinalGrade()">Тазалау</button>
+      <button class="main-btn" onclick="calculateFinalGrade()" data-i18n="calculate">Есептеу</button>
+      <button class="danger-btn" onclick="clearFinalGrade()" data-i18n="clear">Тазалау</button>
     </div>
 
     <div class="result mini-result">
-      <p>Қорытынды балл: <b id="finalGradeOnlyResult">0</b></p>
-      <p>Статус: <b id="finalGradeStatus">-</b></p>
+      <p><span data-i18n="finalGradeLabel">Қорытынды балл:</span> <b id="finalGradeOnlyResult">0</b></p>
+      <p><span data-i18n="status">Статус:</span> <b id="finalGradeStatus">-</b></p>
     </div>
   </section>
 
@@ -214,7 +209,7 @@
 
       <div>
         <h2 data-i18n="gpaTitle">Семестр GPA есептеу</h2>
-        <p>Пән атауы, кредит және қорытынды балл арқылы GPA есептеңіз</p>
+        <p data-i18n="gpaDesc">Пән атауы, кредит және қорытынды балл арқылы GPA есептеңіз</p>
       </div>
     </div>
 
@@ -253,35 +248,39 @@
       </div>
 
       <div>
-        <h2>Мақсат GPA калькуляторы</h2>
-        <p>Қалған пәндерден орташа қанша балл керек екенін шамамен есептейді</p>
+        <h2 data-i18n="targetGpaTitle">Мақсат GPA калькуляторы</h2>
+        <p data-i18n="targetGpaDesc">Қалған пәндерден орташа қанша балл керек екенін шамамен есептейді</p>
       </div>
     </div>
 
     <div class="form-grid three">
       <div>
-        <label>Қазіргі GPA</label>
-        <input type="number" id="currentGpa" placeholder="2.92" min="0" max="4" step="0.01">
+        <label data-i18n="currentGpaLabel">Қазіргі GPA</label>
+        <input type="number" id="currentGpa" data-i18n-placeholder="currentGpaExample" placeholder="2.92" min="0" max="4" step="0.01">
       </div>
 
       <div>
-        <label>Мақсат GPA</label>
-        <input type="number" id="targetGpa" placeholder="3.30" min="0" max="4" step="0.01">
+        <label data-i18n="targetGpaLabel">Мақсат GPA</label>
+        <input type="number" id="targetGpa" data-i18n-placeholder="targetGpaExample" placeholder="3.30" min="0" max="4" step="0.01">
       </div>
 
       <div>
-        <label>Қалған пән саны</label>
-        <input type="number" id="remainingSubjects" placeholder="5" min="1">
+        <label data-i18n="remainingSubjectsLabel">Қалған пән саны</label>
+        <input type="number" id="remainingSubjects" data-i18n-placeholder="remainingSubjectsExample" placeholder="5" min="1">
       </div>
     </div>
 
     <div class="button-row">
-      <button class="main-btn" onclick="calculateTargetGPA()">Есептеу</button>
-      <button class="danger-btn" onclick="clearTargetGPA()">Тазалау</button>
+      <button class="main-btn" onclick="calculateTargetGPA()" data-i18n="calculate">Есептеу</button>
+      <button class="danger-btn" onclick="clearTargetGPA()" data-i18n="clear">Тазалау</button>
     </div>
 
     <div class="result mini-result">
-      <p>Қалған пәндерден орташа: <b id="targetResult">0</b> балл алу керек</p>
+      <p>
+        <span data-i18n="targetAvgPrefix">Қалған пәндерден орташа:</span>
+        <b id="targetResult">0</b>
+        <span data-i18n="targetAvgSuffix">балл алу керек</span>
+      </p>
     </div>
   </section>
 
@@ -298,30 +297,30 @@
       </div>
 
       <div>
-        <h2>Курс GPA есептеу</h2>
-        <p>1 және 2 семестр GPA арқылы курс GPA есептеу</p>
+        <h2 data-i18n="courseGpaTitle">Курс GPA есептеу</h2>
+        <p data-i18n="courseGpaDesc">1 және 2 семестр GPA арқылы курс GPA есептеу</p>
       </div>
     </div>
 
     <div class="form-grid two">
       <div>
-        <label>1-семестр GPA</label>
-        <input type="number" id="sem1Gpa" placeholder="2.92" min="0" max="4" step="0.01">
+        <label data-i18n="sem1GpaLabel">1-семестр GPA</label>
+        <input type="number" id="sem1Gpa" data-i18n-placeholder="currentGpaExample" placeholder="2.92" min="0" max="4" step="0.01">
       </div>
 
       <div>
-        <label>2-семестр GPA</label>
-        <input type="number" id="sem2Gpa" placeholder="3.01" min="0" max="4" step="0.01">
+        <label data-i18n="sem2GpaLabel">2-семестр GPA</label>
+        <input type="number" id="sem2Gpa" data-i18n-placeholder="targetGpaExample" placeholder="3.01" min="0" max="4" step="0.01">
       </div>
     </div>
 
     <div class="button-row">
-      <button class="main-btn" onclick="calculateCourseGPA()">Есептеу</button>
-      <button class="danger-btn" onclick="clearCourseGPA()">Тазалау</button>
+      <button class="main-btn" onclick="calculateCourseGPA()" data-i18n="calculate">Есептеу</button>
+      <button class="danger-btn" onclick="clearCourseGPA()" data-i18n="clear">Тазалау</button>
     </div>
 
     <div class="result mini-result">
-      <p>Курс GPA: <b id="courseGpaResult">0.00</b></p>
+      <p><span data-i18n="courseGpaLabel">Курс GPA:</span> <b id="courseGpaResult">0.00</b></p>
     </div>
   </section>
 
@@ -339,7 +338,7 @@
 
       <div>
         <h2 data-i18n="exportTitle">Нәтижені шығару</h2>
-        <p>Нәтижені сақтап, PDF немесе PNG ретінде жүктей аласыз</p>
+        <p data-i18n="exportDesc">Нәтижені сақтап, PDF немесе PNG ретінде жүктей аласыз</p>
       </div>
     </div>
 
@@ -348,11 +347,11 @@
         Браузерге сақтау
       </button>
 
-      <button onclick="downloadPNG()" class="secondary-btn">
+      <button onclick="downloadPNG()" class="secondary-btn" data-i18n="exportPng">
         PNG / Screenshot
       </button>
 
-      <button onclick="downloadPDF()" class="secondary-btn">
+      <button onclick="downloadPDF()" class="secondary-btn" data-i18n="exportPdf">
         PDF
       </button>
 
