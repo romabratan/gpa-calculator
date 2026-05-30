@@ -82,6 +82,8 @@
 
     <div id="weeks" class="weeks"></div>
 
+    <p id="ratingError" class="form-error" role="alert" hidden></p>
+
     <div class="button-row">
       <button class="main-btn" onclick="calculateRating()" data-i18n="calculate">
         Есептеу
@@ -184,6 +186,8 @@
       </div>
     </div>
 
+    <p id="finalGradeError" class="form-error" role="alert" hidden></p>
+
     <div class="button-row">
       <button class="main-btn" onclick="calculateFinalGrade()" data-i18n="calculate">Есептеу</button>
       <button class="danger-btn" onclick="clearFinalGrade()" data-i18n="clear">Тазалау</button>
@@ -214,6 +218,8 @@
     </div>
 
     <div id="gpaSubjects"></div>
+
+    <p id="gpaError" class="form-error" role="alert" hidden></p>
 
     <div class="button-row">
       <button class="secondary-btn" onclick="addGpaRow()" data-i18n="addSubject">
@@ -270,6 +276,8 @@
       </div>
     </div>
 
+    <p id="targetGpaError" class="form-error" role="alert" hidden></p>
+
     <div class="button-row">
       <button class="main-btn" onclick="calculateTargetGPA()" data-i18n="calculate">Есептеу</button>
       <button class="danger-btn" onclick="clearTargetGPA()" data-i18n="clear">Тазалау</button>
@@ -313,6 +321,8 @@
         <input type="number" id="sem2Gpa" data-i18n-placeholder="targetGpaExample" placeholder="3.01" min="0" max="4" step="0.01">
       </div>
     </div>
+
+    <p id="courseGpaError" class="form-error" role="alert" hidden></p>
 
     <div class="button-row">
       <button class="main-btn" onclick="calculateCourseGPA()" data-i18n="calculate">Есептеу</button>

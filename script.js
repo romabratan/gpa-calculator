@@ -227,6 +227,28 @@ function t(key) {
   return translations[currentLang][key] || key;
 }
 
+function showFormError(errorId, messageKey) {
+  const el = document.getElementById(errorId);
+  if (!el) return;
+  el.dataset.errorKey = messageKey;
+  el.textContent = t(messageKey);
+  el.hidden = false;
+}
+
+function hideFormError(errorId) {
+  const el = document.getElementById(errorId);
+  if (!el) return;
+  el.hidden = true;
+  el.textContent = "";
+  delete el.dataset.errorKey;
+}
+
+function refreshVisibleFormErrors() {
+  document.querySelectorAll(".form-error[data-error-key]").forEach((el) => {
+    el.textContent = t(el.dataset.errorKey);
+  });
+}
+
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem("studentCalcLang", lang);
@@ -238,6 +260,7 @@ function setLang(lang) {
 
   updatePlaceholders();
   createWeekLabels();
+  refreshVisibleFormErrors();
 }
 
 function updatePlaceholders() {
@@ -288,6 +311,8 @@ function createWeekLabels() {
 }
 
 function calculateRating() {
+  hideFormError("ratingError");
+
   const inputs = document.querySelectorAll(".week-input");
   let total = 0;
   let count = 0;
@@ -308,8 +333,14 @@ function calculateRating() {
     }
   });
 
-  if (hasError) return alert(t("invalidScore"));
-  if (count === 0) return alert(t("noData"));
+  if (hasError) {
+    showFormError("ratingError", "invalidScore");
+    return;
+  }
+  if (count === 0) {
+    showFormError("ratingError", "noData");
+    return;
+  }
 
   const rating = total / count;
 
@@ -342,6 +373,7 @@ function calculateRating() {
 }
 
 function clearRating() {
+  hideFormError("ratingError");
   document.getElementById("subjectName").value = "";
 
   document.querySelectorAll(".week-input").forEach(input => {
@@ -358,6 +390,8 @@ function clearRating() {
 }
 
 function calculateFinalGrade() {
+  hideFormError("finalGradeError");
+
   const ratingInput = document.getElementById("finalRatingInput");
   const examInput = document.getElementById("finalExamInput");
 
@@ -367,16 +401,21 @@ function calculateFinalGrade() {
   ratingInput.style.borderColor = "#cbd5e1";
   examInput.style.borderColor = "#cbd5e1";
 
-  if (isNaN(rating) || isNaN(exam)) return alert(t("noData"));
+  if (isNaN(rating) || isNaN(exam)) {
+    showFormError("finalGradeError", "noData");
+    return;
+  }
 
   if (rating < 0 || rating > 100) {
     ratingInput.style.borderColor = "#dc2626";
-    return alert(t("invalidScore"));
+    showFormError("finalGradeError", "invalidScore");
+    return;
   }
 
   if (exam < 0 || exam > 100) {
     examInput.style.borderColor = "#dc2626";
-    return alert(t("invalidScore"));
+    showFormError("finalGradeError", "invalidScore");
+    return;
   }
 
   const finalGrade = rating * 0.6 + exam * 0.4;
@@ -399,6 +438,7 @@ function calculateFinalGrade() {
 }
 
 function clearFinalGrade() {
+  hideFormError("finalGradeError");
   document.getElementById("finalRatingInput").value = "";
   document.getElementById("finalExamInput").value = "";
   document.getElementById("finalGradeOnlyResult").textContent = "0";
@@ -443,6 +483,8 @@ function getGradeInfo(score) {
 }
 
 function calculateGPA() {
+  hideFormError("gpaError");
+
   const rows = document.querySelectorAll(".gpa-row");
 
   let totalCredits = 0;
@@ -492,8 +534,14 @@ function calculateGPA() {
     }
   });
 
-  if (hasError) return alert(t("invalidScore"));
-  if (totalCredits === 0) return alert(t("noData"));
+  if (hasError) {
+    showFormError("gpaError", "invalidScore");
+    return;
+  }
+  if (totalCredits === 0) {
+    showFormError("gpaError", "noData");
+    return;
+  }
 
   const gpa = totalPoints / totalCredits;
 
@@ -504,6 +552,7 @@ function calculateGPA() {
 }
 
 function clearGPA() {
+  hideFormError("gpaError");
   const wrapper = document.getElementById("gpaSubjects");
   wrapper.innerHTML = "";
   addGpaRow();
@@ -515,13 +564,19 @@ function clearGPA() {
 }
 
 function calculateCourseGPA() {
+  hideFormError("courseGpaError");
+
   const sem1 = parseFloat(document.getElementById("sem1Gpa").value);
   const sem2 = parseFloat(document.getElementById("sem2Gpa").value);
 
-  if (isNaN(sem1) || isNaN(sem2)) return alert(t("noData"));
+  if (isNaN(sem1) || isNaN(sem2)) {
+    showFormError("courseGpaError", "noData");
+    return;
+  }
 
   if (sem1 < 0 || sem1 > 4 || sem2 < 0 || sem2 > 4) {
-    return alert(t("invalidGpa"));
+    showFormError("courseGpaError", "invalidGpa");
+    return;
   }
 
   document.getElementById("courseGpaResult").textContent = ((sem1 + sem2) / 2).toFixed(2);
@@ -529,6 +584,7 @@ function calculateCourseGPA() {
 }
 
 function clearCourseGPA() {
+  hideFormError("courseGpaError");
   document.getElementById("sem1Gpa").value = "";
   document.getElementById("sem2Gpa").value = "";
   document.getElementById("courseGpaResult").textContent = "0.00";
@@ -550,14 +606,20 @@ function gpaPointToScore(point) {
 }
 
 function calculateTargetGPA() {
+  hideFormError("targetGpaError");
+
   const current = parseFloat(document.getElementById("currentGpa").value);
   const target = parseFloat(document.getElementById("targetGpa").value);
   const remaining = parseFloat(document.getElementById("remainingSubjects").value);
 
-  if (isNaN(current) || isNaN(target) || isNaN(remaining)) return alert(t("noData"));
+  if (isNaN(current) || isNaN(target) || isNaN(remaining)) {
+    showFormError("targetGpaError", "noData");
+    return;
+  }
 
   if (current < 0 || current > 4 || target < 0 || target > 4 || remaining <= 0) {
-    return alert(t("invalidGpa"));
+    showFormError("targetGpaError", "invalidGpa");
+    return;
   }
 
   const neededPoint = target + (target - current) / remaining;
@@ -567,6 +629,7 @@ function calculateTargetGPA() {
 }
 
 function clearTargetGPA() {
+  hideFormError("targetGpaError");
   document.getElementById("currentGpa").value = "";
   document.getElementById("targetGpa").value = "";
   document.getElementById("remainingSubjects").value = "";

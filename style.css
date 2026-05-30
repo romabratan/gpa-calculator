@@ -599,3 +599,24 @@ body.dark .section-head h2 {
     width: 100%;
   }
 }
+
+.form-error {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+}
+
+.form-error[hidden] {
+  display: none;
+}
+
+body.dark .form-error {
+  color: #fecaca;
+  background: rgba(127, 29, 29, 0.35);
+  border-color: #7f1d1d;
+}
